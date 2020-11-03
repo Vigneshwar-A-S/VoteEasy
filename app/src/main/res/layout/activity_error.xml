@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+
+   <ImageView
+       android:layout_width="match_parent"
+       android:layout_height="500dp"
+       android:src="@drawable/ic_error"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/alreadyVoted"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="#FFEB3B"
+        android:textSize="25dp"
+        android:padding="5dp"
+        android:gravity="center_horizontal" />
+
+
+
+</LinearLayout>

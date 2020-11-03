@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vote Easy</string>
+
+    <string name = "welcome">మొబైల్ ఓటింగ్ వ్యవస్థకు స్వాగతం</string>
+    <string name = "chooseLanguage">భాషను ఎంచుకోండి</string>
+    <string name = "languages">ఇంగ్లీష్, తమిళం, హిందీ, తెలుగు, గుజరాతీ, బెంగాలీ</string>
+    <string name = "phoneNumber"> ఫోను నంబరు</string>
+    <string name="alreadyVoted">మీరు ఇప్పటికే ఈ మొబైల్‌తో ఓటు వేశారు!</string>
+    <string name="name"> పేరు</string>
+    <string name="mobileNumber">మొబైల్ సంఖ్య</string>
+    <string name="register">నమోదు చేయండి</string>
+    <string name="send_otp">OTP పంపండి</string>
+    <string name="sign_in">సైన్ ఇన్ చేయండి</string>
+    <string name="resend_otp">OTP ను మళ్ళీ పంపు</string>
+    <string name="_welcome">స్వాగతం</string>
+    <string name="vote">ఓటు</string>
+    <string name="mobile_voting_system">మొబైల్ ఓటింగ్ వ్యవస్థ!</string>
+    <string name="options">… ఓటింగ్ ఎంపికలు … యుఎస్ఎస్డి, వాయిస్ ఓటింగ్ మరియు సాధారణ ఓటింగ్.</string>
+    <string name="select">హలో, దయచేసి మీ ఓటింగ్ ఎంపికలను జాబితా చేసినట్లు చెప్పండి లేదా ఎంచుకోండి</string>
+    <string name="hello">హలో .</string>
+    <string name="intorAI">నేను ఆర్టిఫిషియల్ ఇంటెలిజెన్స్ .. మీ ఎంపిక ఆధారంగా నేను మీ ఓటును అత్యంత సురక్షితమైన రీతిలో పోల్ చేస్తాను …
+</string>
+    <string name="yourVoterID">మీ ఓటరు ID సంఖ్య</string>
+    <string name="constituency">.. మీ నియోజకవర్గంలో, ఉన్నాయి..</string>
+    <string name="candidate">అభ్యర్థులు</string>
+    <string name="last">స్పష్టంగా వినండి, నేను అభ్యర్థుల పేరును పోలింగ్ నంబర్‌తో జాబితా చేయబోతున్నాను. , ఉదాహరణ కోసం నేను చెబితే … 1,0,2,4 అరుణ్ .., ఇక్కడ 1,0,2,4 పోలింగ్ సంఖ్య. మరియు అరుణ్ అభ్యర్థి పేరు. . .
+                                 మీరు ఇష్టపడే అభ్యర్థి పోలింగ్ నంబర్ చెప్పాలి .. ఒకసారి నేను అభ్యర్థుల వివరాలను జాబితా చేసాను. మధ్యలో పోలింగ్ సంఖ్యను చెప్పడానికి మీరు స్క్రీన్‌ను తాకడం ద్వారా నన్ను అడ్డగించవచ్చు "
+</string>
+    <string name ="atlast">... దయచేసి ఓటింగ్ చేయమని అభ్యర్థి ఐడిని చెప్పడానికి స్క్రీన్‌ను తాకండి .. లేదా .. మీరు అభ్యర్థి ఐడిని మళ్లీ పునరావృతం చేయాలనుకుంటే .. రిపీట్ చెప్పండి "
+</string>
+
+    <string name = "ussd">USSD</string>
+    <string name = "vv">వాయిస్ ఓటింగ్</string>
+    <string name = "mv">మాన్యువల్ ఓటింగ్</string>
+    <string name="touchTheScreen"> మీ రిజిస్టర్డ్ మొబైల్ నంబర్‌ను చెప్పడానికి దయచేసి స్క్రీన్‌ను తాకండి!</string>
+    <string name="invalidPN">చెల్లని పోల్ సంఖ్య</string>
+    <string name="voteSuccess">ఓటు వేశారు</string>
+    <string name="repeatHolder">... దయచేసి ఓటింగ్ చేయమని అభ్యర్థి ఐడిని చెప్పడానికి స్క్రీన్‌ను తాకండి .. లేదా .. మీరు అభ్యర్థి ఐడిని మళ్లీ పునరావృతం చేయాలనుకుంటే .. రిపీట్ చెప్పండి "
+</string>
+    <string name="candies">.. అభ్యర్థులు ...</string>
+
+    <string name="validPhnoRequired">మీరు చెల్లని ఫోన్ నంబర్‌కు చెప్పారు. చెల్లుబాటు అయ్యే ఫోన్ నంబర్ అవసరం
+</string>
+    <string name="sayValidPhone">చెల్లుబాటు అయ్యే మొబైల్ నంబర్‌ను మళ్ళీ చెప్పడానికి స్క్రీన్‌ను తాకండి!
+</string>
+    <string name="accessPermitted">ప్రాప్యత అనుమతించబడింది
+</string>
+
+
+
+
+</resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

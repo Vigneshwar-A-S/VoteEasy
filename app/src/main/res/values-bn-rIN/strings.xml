@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vote Easy</string>
+
+    <string name = "welcome">মোবাইল ভোটদান সিস্টেমে আপনাকে স্বাগতম</string>
+    <string name = "chooseLanguage">ভাষা নির্বাচন করুন</string>
+    <string name = "languages">ইংরেজি, তামিল, হিন্দি, তেলেগু, গুজরাটি, বাংলা</string>
+    <string name = "phoneNumber">ফোন নম্বর</string>
+    <string name="alreadyVoted">আপনি ইতিমধ্যে এই মোবাইল দিয়ে ভোট দিয়েছেন!</string>
+    <string name="name">নাম</string>
+    <string name="mobileNumber">মোবাইল নম্বর</string>
+    <string name="register">নিবন্ধন</string>
+    <string name="send_otp">ওটিপি প্রেরণ করুন</string>
+    <string name="sign_in">সাইন ইন করুন</string>
+    <string name="resend_otp">ওটিপি পুনরায় পাঠান</string>
+    <string name="_welcome">স্বাগত</string>
+    <string name="vote">ভোট</string>
+    <string name="mobile_voting_system">মোবাইল ভোটিং সিস্টেম!</string>
+    <string name="options">… ভোটের বিকল্পগুলি হ\'ল … ইউএসএসডি, ভয়েস ভোটদান এবং সাধারণ ভোটদান।</string>
+    <string name="select">হ্যালো, দয়া করে তালিকাভুক্ত হিসাবে আপনার ভোটদানের বিকল্পগুলি বলুন বা নির্বাচন করুন</string>
+    <string name="hello">হ্যালো .</string>
+    <string name="intorAI">আমি একটি কৃত্রিম বুদ্ধিমত্তা .. যে আমি আপনার ভোটের উপর ভিত্তি করে আপনার সুরক্ষা অত্যন্ত সুরক্ষিতভাবে পোল করব …
+</string>
+    <string name="yourVoterID">আপনার ভোটার আইডি নম্বরটি</string>
+    <string name="constituency">.. আপনার নির্বাচনী এলাকার অংশ আছে।</string>
+    <string name="candidate">প্রার্থী</string>
+    <string name="last">পরিষ্কারভাবে শুনুন, আমি প্রার্থীদের নামটি তার পোলিং নম্বর দিয়ে তালিকাভুক্ত করতে যাচ্ছি। উদাহরণস্বরূপ, আমি যদি বলেছিলাম … 1,0,2,4 অরুণ .., এখানে 1,0,2,4 একটি ভোটগ্রহণ নম্বর। আর অরুণ একজন প্রার্থীর নাম। । ।
+                                 আপনার পছন্দের প্রার্থী পোলিং নম্বরটি বলতে হবে .. আমি একবার প্রার্থীদের বিবরণী তালিকাভুক্ত করেছি। মাঝখানে পোলিং নম্বরটি বলতে আপনি স্ক্রিনটি টাচ করে আমাকেও ইন্টারপুট করতে পারেন "
+</string>
+    <string name ="atlast">… দয়া করে পর্দা স্পর্শ করুন প্রার্থী আইডি বলার জন্য .. বা .. আপনি আবার প্রার্থী আইডি পুনরাবৃত্তি করতে চান .. পুনরায় বলুন "
+</string>
+
+    <string name = "ussd">ইউএসএসডি</string>
+    <string name = "vv">ভয়েস ভোট</string>
+    <string name = "mv">ম্যানুয়াল ভোট</string>
+
+    <string name="touchTheScreen">আপনার নিবন্ধিত মোবাইল নম্বরটি বলতে স্ক্রিনটি স্পর্শ করুন!</string>
+    <string name="invalidPN">অবৈধ পোল নম্বর</string>
+    <string name="voteSuccess"> সফলভাবে ভোট দিয়েছেন</string>
+    <string name="repeatHolder">... দয়া করে পর্দা স্পর্শ করুন প্রার্থী আইডি বলার জন্য .. বা .. আপনি আবার প্রার্থী আইডি পুনরাবৃত্তি করতে চান .. পুনরায় বলুন "</string>
+    <string name="candies">.. প্রার্থীরা হলেন ...</string>
+
+    <string name="validPhnoRequired">আপনি একটি ইনভালিউড ফোন নম্বর বলেছিলেন,। একটি বৈধ ফোন নম্বর প্রয়োজন</string>
+    <string name="sayValidPhone">আবার বৈধ মোবাইল নম্বর বলতে স্ক্রিনটি টাচ করুন!</string>
+    <string name="accessPermitted">অ্যাক্সেস অনুমোদিত</string>
+
+
+
+
+
+
+
+</resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

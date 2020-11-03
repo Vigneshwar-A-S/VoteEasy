@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vote Easy</string>
+
+    <string name = "welcome">മൊബൈൽ വോട്ടിംഗ് സിസ്റ്റത്തിലേക്ക് സ്വാഗതം</string>
+    <string name = "chooseLanguage">ഭാഷ തിരഞ്ഞെടുക്കുക</string>
+    <string name = "languages">ഇംഗ്ലീഷ്, തമിഴ്, ഹിന്ദി, തെലുങ്ക്, ഗുജറാത്തി, ബംഗാളി</string>
+    <string name = "phoneNumber">ഫോൺ നമ്പർ</string>
+    <string name="alreadyVoted">നിങ്ങൾ ഇതിനകം ഈ മൊബൈൽ ഉപയോഗിച്ച് വോട്ട് ചെയ്തു!</string>
+    <string name="name">പേര്</string>
+    <string name="mobileNumber">മൊബൈൽ നമ്പർ</string>
+    <string name="register">രജിസ്റ്റർ ചെയ്യുക</string>
+    <string name="send_otp">OTP അയയ്‌ക്കുക</string>
+    <string name="sign_in">സൈൻ ഇൻ</string>
+    <string name="resend_otp">OTP വീണ്ടും അയയ്‌ക്കുക</string>
+    <string name="_welcome">സ്വാഗതം</string>
+    <string name="vote">വോട്ട് ചെയ്യുക</string>
+    <string name="mobile_voting_system">മൊബൈൽ വോട്ടിംഗ് സംവിധാനം!</string>
+    <string name="options">… വോട്ടിംഗ് ഓപ്ഷനുകൾ ഇവയാണ് … യു‌എസ്‌എസ്ഡി, വോയ്‌സ് വോട്ടിംഗ്, സാധാരണ വോട്ടിംഗ്.</string>
+    <string name="select">ഹലോ, ദയവായി പട്ടികപ്പെടുത്തിയിരിക്കുന്നതുപോലെ നിങ്ങളുടെ വോട്ടിംഗ് ഓപ്ഷനുകൾ പറയുക അല്ലെങ്കിൽ തിരഞ്ഞെടുക്കുക</string>
+    <string name="hello">ഹലോ .</string>
+    <string name="intorAI">ഞാൻ ഒരു ആർട്ടിഫിഷ്യൽ ഇന്റലിജൻസ് ആണ് .. നിങ്ങളുടെ തിരഞ്ഞെടുപ്പിനെ അടിസ്ഥാനമാക്കി ഞാൻ നിങ്ങളുടെ വോട്ട് വളരെ സുരക്ഷിതമായ രീതിയിൽ പോൾ ചെയ്യും …
+</string>
+    <string name="yourVoterID">നിങ്ങളുടെ വോട്ടർ ഐഡി നമ്പർ
+</string>
+    <string name="constituency">.. നിങ്ങളുടെ നിയോജകമണ്ഡലത്തിൽ, ഉണ്ട്.</string>
+    <string name="candidate">സ്ഥാനാർത്ഥികൾ</string>
+    <string name="last">ശ്രദ്ധിക്കൂ, ഞാൻ സ്ഥാനാർത്ഥികളുടെ പേര് അവരുടെ പോളിംഗ് നമ്പറിനൊപ്പം പട്ടികപ്പെടുത്താൻ പോകുന്നു. , ഉദാഹരണത്തിനായി ഞാൻ പറഞ്ഞാൽ … 1,0,2,4 അരുൺ .., ഇവിടെ 1,0,2,4 ഒരു പോളിംഗ് നമ്പറാണ്. അരുൺ ഒരു സ്ഥാനാർത്ഥിയുടെ പേരാണ്. . .
+                                 നിങ്ങൾ തിരഞ്ഞെടുത്ത കാൻഡിഡേറ്റ് പോളിംഗ് നമ്പർ പറയേണ്ടതുണ്ട് .. ഒരിക്കൽ ഞാൻ സ്ഥാനാർത്ഥികളുടെ വിശദാംശങ്ങൾ പട്ടികപ്പെടുത്തി. നടുക്ക് പോളിംഗ് നമ്പർ പറയാൻ സ്ക്രീനിൽ സ്പർശിച്ചുകൊണ്ട് നിങ്ങൾക്ക് എന്നെ തടസ്സപ്പെടുത്താം "
+</string>
+    <string name ="atlast">… വോട്ടിംഗ് നടത്താൻ കാൻഡിഡേറ്റ് ഐഡിയോട് പറയാൻ സ്ക്രീനിൽ സ്പർശിക്കുക .. അല്ലെങ്കിൽ .. നിങ്ങൾക്ക് കാൻഡിഡേറ്റ് ഐഡി വീണ്ടും ആവർത്തിക്കണമെങ്കിൽ .. ആവർത്തിക്കുക "
+</string>
+
+    <string name = "ussd">യു‌എസ്‌എസ്ഡി</string>
+    <string name = "vv">യു‌എസ്‌എസ്ഡി</string>
+    <string name = "mv">മാനുവൽ വോട്ടിംഗ്</string>
+
+    <string name="touchTheScreen">നിങ്ങളുടെ രജിസ്റ്റർ ചെയ്ത മൊബൈൽ നമ്പർ പറയാൻ ദയവായി സ്ക്രീനിൽ സ്പർശിക്കുക!</string>
+    <string name="invalidPN"> അസാധുവായ പോൾ നമ്പർ</string>
+    <string name="voteSuccess">വോട്ട് ചെയ്തു</string>
+    <string name="repeatHolder">... വോട്ടിംഗ് നടത്താൻ കാൻഡിഡേറ്റ് ഐഡിയോട് പറയാൻ സ്ക്രീനിൽ സ്പർശിക്കുക .. അല്ലെങ്കിൽ .. നിങ്ങൾക്ക് കാൻഡിഡേറ്റ് ഐഡി വീണ്ടും ആവർത്തിക്കണമെങ്കിൽ .. ആവർത്തിക്കുക "
+</string>
+    <string name="candies">.. സ്ഥാനാർത്ഥികൾ ...</string>
+
+
+    <string name="validPhnoRequired">നിങ്ങൾ ഒരു അസാധുവായ ഫോൺ നമ്പറോട് പറഞ്ഞിട്ടുണ്ട്. സാധുവായ ഫോൺ നമ്പർ ആവശ്യമാണ്
+</string>
+    <string name="sayValidPhone">സാധുവായ മൊബൈൽ നമ്പർ വീണ്ടും പറയാൻ സ്‌ക്രീനിൽ സ്‌പർശിക്കുക!
+</string>
+    <string name="accessPermitted"> ആക്സസ് അനുവദനീയമാണ്</string>
+
+</resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vote Easy</string>
+
+    <string name = "welcome">मोबाइल मतदान प्रणालीमध्ये आपले स्वागत आहे</string>
+    <string name = "chooseLanguage">भाषा निवडा</string>
+    <string name = "languages">इंग्रजी, तामिळ, हिंदी, तेलगू, गुजराती, बंगाली</string>
+    <string name = "phoneNumber">फोन नंबर</string>
+    <string name="alreadyVoted">आपण या मोबाइलद्वारे यापूर्वीच मत दिले आहे!</string>
+    <string name="name">नाव</string>
+    <string name="mobileNumber">मोबाइल नंबर</string>
+    <string name="register">नोंदणी करा</string>
+    <string name="send_otp">ओटीपी पाठवा</string>
+    <string name="sign_in">साइन इन करा</string>
+    <string name="resend_otp">ओटीपी पुन्हा पाठवा</string>
+    <string name="_welcome">आपले स्वागत आहे</string>
+    <string name="vote">मतदान करा</string>
+    <string name="mobile_voting_system">मोबाइल मतदान यंत्रणा!</string>
+    <string name="options">… मतदानाचे पर्याय आहेत … यूएसएसडी, व्हॉईस मतदान आणि सामान्य मतदान.</string>
+    <string name="select">नमस्कार, कृपया सूचीबद्ध म्हणून आपले मतदानाचे पर्याय सांगा किंवा निवडा</string>
+    <string name="hello">नमस्कार .</string>
+    <string name="intorAI">मी एक कृत्रिम बुद्धिमत्ता आहे .. मी तुमच्या निवडीच्या आधारे अत्यधिक सुरक्षित पद्धतीने तुमचे मत नोंदवित आहे …</string>
+    <string name="yourVoterID">तुमचा मतदार आयडी क्रमांक आहे</string>
+    <string name="constituency">.. आपल्या मतदार संघात, आहेत.</string>
+    <string name="candidate">उमेदवार</string>
+    <string name="last">स्पष्टपणे ऐका, मी मतदान केंद्रासह उमेदवारांच्या नावाची यादी करीत आहे. , उदाहरणार्थ मी म्हणालो तर … 1,0,2,4 अरुण .., येथे 1,0,2,4 एक मतदान क्रमांक आहे. अरुण हे उमेदवाराचे नाव आहे. . .
+                                 आपल्याला प्राधान्य दिले जाणारे उमेदवार मतदान मतदान क्रमांक सांगायला हवे .. एकदा मी उमेदवारांचा तपशील सूचीबद्ध केला. मध्यभागी मतदान क्रमांक सांगण्यासाठी आपण स्क्रीनवर स्पर्श करून मला देखील अडवू शकता "
+</string>
+    <string name ="atlast">... कृपया मतदान करण्यासाठी उमेदवाराचा आयडी सांगण्यासाठी स्क्रीनला स्पर्श करा .. किंवा .. आपण उमेदवारांचा आयडी पुन्हा सांगायचा असल्यास .. पुन्हा म्हणा "
+</string>
+
+    <string name = "ussd">यूएसएसडी</string>
+    <string name = "vv">व्हॉईस मतदान</string>
+    <string name = "mv">मॅन्युअल मतदान</string>
+
+    <string name="touchTheScreen">कृपया आपला नोंदणीकृत मोबाइल नंबर सांगण्यासाठी स्क्रीनला स्पर्श करा!</string>
+    <string name="invalidPN">अवैध मतदान क्रमांक</string>
+    <string name="voteSuccess">यशस्वीरित्या मतदान केले</string>
+        <string name="repeatHolder">... कृपया मतदान करण्यासाठी उमेदवाराचा आयडी सांगण्यासाठी स्क्रीनला स्पर्श करा .. किंवा .. आपण उमेदवारांचा आयडी पुन्हा सांगायचा असल्यास .. पुन्हा म्हणा </string>
+    <string name="candies">.. उमेदवार आहेत ...</string>
+
+    <string name="validPhnoRequired">आपण एक इनव्हॉलीड फोन नंबर सांगितला होता,. एक वैध फोन नंबर आवश्यक आहे
+</string>
+    <string name="sayValidPhone">पुन्हा वैध मोबाइल नंबर म्हणाण्यासाठी स्क्रीनला स्पर्श करा!
+</string>
+    <string name="accessPermitted">प्रवेश परवानगी</string>
+
+</resources>
+
+
+
+
+
+
+
+
+
+
+
+
+

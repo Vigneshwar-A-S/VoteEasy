@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "496148077405",
+    "firebase_url": "https://vote-easy-25ffb.firebaseio.com",
+    "project_id": "vote-easy-25ffb",
+    "storage_bucket": "vote-easy-25ffb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496148077405:android:fe38fdb07c48d6055e26b4",
+        "android_client_info": {
+          "package_name": "com.highsecured.voteeasy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496148077405-q4i5d3j67042dc46lq09hou4epn3trsc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZIpXIl94vVjFHr0IdeT4WdfUwlqzveJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "496148077405-q4i5d3j67042dc46lq09hou4epn3trsc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

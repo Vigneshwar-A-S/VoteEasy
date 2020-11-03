@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Vote Easy</string>
+
+    <string name = "welcome">Welcome to Mobile Voting System</string>
+    <string name = "chooseLanguage">Choose Language</string>
+    <string name = "languages">English, Tamil, Hindi, Telugu, Gujarati, Bengali</string>
+    <string name = "phoneNumber">Phone Number</string>
+    <string name="alreadyVoted">You have already voted with this Mobile!</string>
+    <string name="name">Name</string>
+    <string name="mobileNumber">Mobile number</string>
+    <string name="register">Register</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="sign_in">Sign In</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="_welcome">WELCOME</string>
+    <string name="vote">VOTE</string>
+    <string name ="options">Hello, Please tell or select your voting options as listed</string>
+    <string name="mobile_voting_system">Mobile Voting System!</string>
+<!--    <string name="options">Hello, Please tell or select your voting options as listed</string>-->
+    <string name="select">The Voting options are … USSD , Voice Voting, and Normal Voting.</string>
+    <string name="hello">Hello.</string>
+    <string name="intorAI">I am an Artificial Intelligence ..  that I will poll your vote in highly secured manner based on your choice …</string>
+    <string name="yourVoterID">Your Voter ID number is</string>
+    <string name="constituency">.. In your part of the constituency , there are .</string>
+    <string name="candidate">Candidate</string>
+    <string name="last">Listen Clearly , I am going to list out the Candidates name with thier Polling number. , FOR Example If I said … 1,0,2,4 Arun ..  , here 1,0,2,4 is a polling Number. and Arun is a candidate Name . . .                                 You need to tell the prefered Candidate Polling number .. Once I listed out the Candidates details. You can also interupt me by touching the screen to tell the Polling Number in the middle \"</string>
+    <string name="atlast">… Please touch the screen to tell the Candidate ID to make voting .. or .. If you want to repeat the candidate ID again .. say REPEAT \"</string>
+    <string name="ussd">USSD</string>
+    <string name="vv">Voice Voting</string>
+    <string name="mv">Manual Voting</string>
+    <string name="touchTheScreen">Please touch the screen to tell your Registered Mobile Number!</string>
+    <string name="invalidPN">Invalid Poll number</string>
+    <string name="voteSuccess">voted successfully</string>
+    <string name="repeatHolder">\"... Please touch the screen to tell the Candidate ID to make voting .. or .. If you want to repeat the candidate ID again .. say REPEAT \"</string>
+    <string name="candies">.. The Candidates are ...</string>
+    <string name="validPhnoRequired">You had told an INVALID PHONE NUMBER ,  . a Valid Phone Number is Required</string>
+    <string name="sayValidPhone">Touch the Screen to Say the Valid Mobild Number Again!</string>
+    <string name="accessPermitted">Access Permitted</string>
+
+</resources>

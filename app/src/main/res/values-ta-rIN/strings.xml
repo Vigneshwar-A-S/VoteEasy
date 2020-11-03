@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vote Easy</string>
+
+    <string name = "welcome">மொபைல் வாக்களிப்பு முறைக்கு வருக</string>
+    <string name = "chooseLanguage"> மொழியைத் தேர்வுசெய்க</string>
+    <string name = "languages">ஆங்கிலம், தமிழ், இந்தி, தெலுங்கு, குஜராத்தி, பெங்காலி</string>
+    <string name = "phoneNumber">தொலைபேசி எண்</string>
+    <string name="alreadyVoted">இந்த மொபைலுடன் நீங்கள் ஏற்கனவே வாக்களித்துள்ளீர்கள்!</string>
+    <string name="name">பெயர்</string>
+    <string name="mobileNumber">கைபேசி எண்</string>
+    <string name="register">பதிவு</string>
+    <string name="send_otp">OTP ஐ அனுப்பவும்</string>
+    <string name="sign_in">உள்நுழைக</string>
+    <string name="resend_otp">OTP ஐ மீண்டும் அனுப்பு</string>
+    <string name="_welcome">வரவேற்பு</string>
+    <string name="vote">வாக்களிக்கவும்</string>
+    <string name="mobile_voting_system">மொபைல் வாக்களிப்பு முறை!</string>
+    <string name="options">… வாக்களிக்கும் விருப்பங்கள் … யு.எஸ்.எஸ்.டி, குரல் வாக்களிப்பு மற்றும் சாதாரண வாக்களிப்பு.</string>
+    <string name="select">வணக்கம், பட்டியலிடப்பட்டுள்ளபடி உங்கள் வாக்களிப்பு விருப்பங்களைச் சொல்லுங்கள் அல்லது தேர்ந்தெடுக்கவும்</string>
+    <string name="hello">வணக்கம் .</string>
+    <string name="intorAI">நான் ஒரு செயற்கை நுண்ணறிவு .. உங்கள் விருப்பத்தின் அடிப்படையில் உங்கள் வாக்குகளை மிகவும் பாதுகாப்பான முறையில் வாக்களிப்பேன் ..
+</string>
+    <string name="yourVoterID">உங்கள் வாக்காளர் அடையாள எண்
+</string>
+    <string name="constituency">.. உங்கள் தொகுதியின் பகுதியில், உள்ளன.</string>
+    <string name="candidate">வேட்பாளர்கள்</string>
+    <string name="last">தெளிவாகக் கேளுங்கள், வேட்பாளர்களின் பெயரை அவர்கள் வாக்களிக்கும் எண்ணுடன் பட்டியலிடப் போகிறேன். , எடுத்துக்காட்டுக்கு நான் சொன்னால் … 1,0,2,4 அருண் .., இங்கே 1,0,2,4 ஒரு வாக்குப்பதிவு எண். அருண் ஒரு வேட்பாளர் பெயர். . .
+                                 நீங்கள் விருப்பமான வேட்பாளர் வாக்கு எண்ணை சொல்ல வேண்டும் .. ஒருமுறை நான் வேட்பாளர்களின் விவரங்களை பட்டியலிட்டேன். நடுவில் உள்ள வாக்கு எண்ணைக் கூற திரையைத் தொட்டு நீங்கள் என்னை குறுக்கிடலாம் "
+</string>
+
+    <string name ="atlast">… தயவுசெய்து வாக்களிக்க ஐடி வேட்பாளரிடம் சொல்ல திரையைத் தொடவும் .. அல்லது .. நீங்கள் மீண்டும் வேட்பாளர் ஐடியை மீண்டும் செய்ய விரும்பினால் .. மீண்டும் சொல்லுங்கள் "
+</string>
+
+    <string name = "ussd">யு.எஸ்.எஸ்.டி.</string>
+    <string name = "vv">குரல் வாக்களிப்பு</string>
+    <string name = "mv">கையேடு வாக்களிப்பு</string>
+
+    <string name="touchTheScreen">உங்கள் பதிவுசெய்யப்பட்ட மொபைல் எண்ணைக் கூற திரையைத் தொடவும்!</string>
+    <string name="invalidPN"> தவறான வாக்கெடுப்பு எண்</string>
+    <string name="voteSuccess">வெற்றிகரமாக வாக்களித்தார்</string>
+    <string name="repeatHolder">... வாக்காளர் ஐடியை வாக்களிக்கச் சொல்ல திரையைத் தொடவும் .. அல்லது .. நீங்கள் மீண்டும் வேட்பாளர் ஐடியை மீண்டும் செய்ய விரும்பினால் .. மீண்டும் சொல்லுங்கள் "
+</string>
+    <string name="candies">.. வேட்பாளர்கள் ...</string>
+    <string name="validPhnoRequired">நீங்கள் ஒரு தவறான தொலைபேசி எண்ணைக் கூறியிருந்தீர்கள். செல்லுபடியாகும் தொலைபேசி எண் தேவை
+</string>
+    <string name="sayValidPhone">செல்லுபடியாகும் மொபைல் எண்ணை மீண்டும் சொல்ல திரையைத் தொடவும்!
+</string>
+    <string name="accessPermitted">அணுகல் அனுமதி</string>
+
+</resources>
