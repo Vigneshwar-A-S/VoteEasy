@@ -1,0 +1,2045 @@
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp(functions.config().firebase);
+
+
+const app = require('express')()
+const bodyParser = require('body-parser')
+const logger = require('morgan');
+
+const port = process.env.PORT || 3030
+
+app.use(logger('dev'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+
+var database = admin.database();
+
+//translation
+const {Translate} = require('@google-cloud/translate').v2;
+require('dotenv').config();
+
+// Your credentials
+const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
+// const CREDENTIALS = process.env.CREDENTIALS;
+
+// Configuration for the client
+const translate = new Translate({
+    credentials: CREDENTIALS,
+    projectId: CREDENTIALS.project_id
+
+});
+
+let sb = {node : []};
+
+exports.helloWorld = functions.https.onRequest((request, response) => {
+  functions.logger.info("Hello logs!", {structuredData: true});
+  // response.send('This is tutorial App on creating your first USSD app in 5 minutes or less by Ajala Abdulsamii <kgasta@gmail.com>');
+  // response.send("Hello from Firebase!");
+
+  let {sessionId, serviceCode, phoneNumber, text} = request.body
+
+  let varObj = {name : "undefined",
+  party : "undefined",
+  polling_no : "undefined", 
+  voterid : "undefined",
+  submit : "undefined",
+details : "undefined",
+reply : "undefined"
+};
+
+
+let CandiNameObject = {name : [],
+         party : [],
+         polling_no : [],
+         voterid : [],
+         submit : [],
+       details : [],
+      reply : [] };
+
+       let TransNameObject = {name : [],
+        polling_no : [],
+        voterid : [],
+       CandiName : []};
+
+       let result = {ans : "undef"};
+
+       var CphoneNumber = phoneNumber.replace("+91", "");
+       var personidPath = database.ref('Voterid/' + CphoneNumber)
+
+var strValue = text.replace("*1", "");
+
+async function blockChain(poll_no){
+
+  const crypto = require('crypto');
+
+  var encript= CphoneNumber + poll_no + "!@#$%";
+  
+  var hash = crypto.createHmac('sha256', "secret")
+  .update(encript)
+  .digest('hex').toString();
+
+  
+ let ts = Date.now();
+
+// timestamp in milliseconds
+console.log(ts);
+
+// timestamp in seconds
+console.log(Math.floor(ts/1000));
+
+var timestamp = Math.floor(ts/1000);
+
+NameListed(hash, timestamp);
+
+  // return sha(JSON.stringify(this.data) + this.prevHash + this.index + this.timestamp);
+ 
+
+}
+
+async function NameListed(hash, timestamp){
+
+
+  try{
+
+
+    console.log("The phone number is : " + CphoneNumber);
+    console.log("Person ID PATH : " + personidPath);
+
+     personidPath.on('value' , function(dataSnapshot){
+
+      //##Person Voter ID##
+
+      
+     var personVoterID = dataSnapshot.child('voter_id_no').val();
+
+     
+    console.log("Person voter id : " + personVoterID);
+
+    TransNameObject.voterid.push(personVoterID);
+
+
+     var testforfun = database.ref('People/' + personVoterID);
+
+      testforfun.on('value' , function(snapshot){
+      
+      //Person Name
+      var name = snapshot.child('name').val();
+
+      TransNameObject.name.push(name);
+      console.log("the transac  Name is " + TransNameObject.name.join(""))
+    
+var refe = database.ref('voting_poll/' + strValue + '/name')          
+
+       
+refe.on("value" , function(querySnapshot){
+
+      
+  var Cname = querySnapshot.val();
+  TransNameObject.CandiName.push(Cname);
+  console.log("the transac Candidate Name is " + TransNameObject.CandiName.join(""))
+
+  admin.database.ref(hash).set({
+    trans_name : TransNameObject.name[0],
+    trans_voterid : TransNameObject.voterid[0],
+    trans_CandidateName : TransNameObject.CandiName[0],
+    trans_VotedTime : timestamp,
+    trans_PolledNumber : strValue,
+    trans_Key : hash
+      });
+
+ 
+
+    });
+
+
+   });
+
+ }, function(error){
+       console.error(error);
+     });
+
+   
+       }
+ 
+    
+  catch(error){
+
+ console.log(error)
+
+  }
+
+  
+
+}
+
+const translateText = async (text, targetLanguage) => {
+
+  try {
+
+        let [response] = await translate.translate(text, targetLanguage);
+      
+      return response;
+
+  } catch (error) {
+    console.log(`Error at translateText --> ${error}`);
+     return 0;
+
+  }
+
+};
+
+
+
+ async function NameList(){
+
+
+  try{
+    console.log("The phone number is : " + CphoneNumber);
+
+    console.log("Person ID PATH : " + personidPath);
+
+
+     personidPath.on('value' , function(dataSnapshot){
+
+     var personVoterID = dataSnapshot.child('voter_id_no').val();
+
+    console.log("Person voter id : " + personVoterID);
+
+     CandiNameObject.details.push(phoneNumber);
+     CandiNameObject.details.push(personVoterID);
+
+     var testforfun = database.ref('People/' + personVoterID);
+
+      testforfun.on('value' , function(snapshot){
+      console.log("from nameFind function: "+snapshot.child('constituent').val());
+      console.log("from nameFind function: "+snapshot.child('part_no').val());
+      console.log("the name is "+snapshot.child('name').val());
+
+      var consti = snapshot.child('constituent').val();
+      var part = snapshot.child('part_no').val();
+      var name = snapshot.child('name').val();
+      var dob = snapshot.child('dob').val();
+      var constiName = snapshot.child('constituent_name').val();
+      var partName = snapshot.child('part_name').val();
+      var address = snapshot.child('address').val();
+      var relation = snapshot.child('relation_name').val();
+      
+      CandiNameObject.details.push(consti);
+      CandiNameObject.details.push(part);
+      CandiNameObject.details.push(name);
+      CandiNameObject.details.push(dob);
+      CandiNameObject.details.push(constiName);
+      CandiNameObject.details.push(partName);
+      CandiNameObject.details.push(address);
+      CandiNameObject.details.push(relation);
+
+     //  varObj.details = valuet.details.join("_");
+
+      console.log("the constituency and the part no are " + consti + " " + part);
+
+
+var ref = database.ref('Constituent/' + consti + '/Part/' + part + '/Candidates');
+        
+
+var queryNameRef = ref.orderByChild("name")
+       
+ queryNameRef.on("value" , function(querySnapshot){
+
+      querySnapshot.forEach(function(candiSnapshot){
+        console.log("candiSnap:"  + candiSnapshot.child("vote_polling_no").val() + " " +   candiSnapshot.child("name").val());
+
+        CandiNameObject.name.push(candiSnapshot.child("vote_polling_no").val() + " " +   candiSnapshot.child("name").val());
+
+        CandiNameObject.polling_no.push(candiSnapshot.child("vote_polling_no").val());
+        
+      });
+
+      console.log("Thank everyone"); 
+ 
+
+    });
+
+
+   });
+
+ }, function(error){
+       console.error(error);
+     });
+
+
+     let lastAnswer = CandiNameObject.name.join(" ");
+
+     console.log("the last answer is :" + lastAnswer);
+ 
+     let CustomizedLastAnswer = {resultant : [],}
+   
+       for(const index in CandiNameObject.name){
+         var count = 1 ;
+         //  CustomizedLastAnswer.resultant.push("${index}. ${lastAnswer[index]}")
+ 
+          CustomizedLastAnswer.resultant.push(`${Number(index) + count} ${CandiNameObject.name[index]}`)
+ 
+          
+ 
+          console.log(` See Here ! : ${Number(index) + count} ${CandiNameObject.name[index]}`)
+ 
+   
+       }
+ 
+       console.log("the customized Last Answer is :" + CustomizedLastAnswer.resultant);
+   
+ 
+       console.log("the customized Last Answer is :" + CustomizedLastAnswer.resultant.join("\u000a"));
+   
+       var sizeOfCL = CustomizedLastAnswer.resultant.length;
+ 
+       console.log("the size of CL is : " + sizeOfCL);
+
+       var itemArray = CustomizedLastAnswer.resultant;
+
+       let resultSet = new Array(Math.ceil(sizeOfCL / 5))
+          .fill()
+          .map(_ => itemArray.splice(0, 5))
+  
+          console.log(resultSet);
+    
+     console.log("the result set is  : " + resultSet[0]);
+
+  }
+
+  catch(error){
+
+ console.log(error)
+
+  }
+   
+    
+  
+
+     
+
+  }
+
+  async function translatetheText(text, target) {
+
+    let [translations] =  await translate.translate(text, target);
+  
+    translations = Array.isArray(translations) ? translations : [translations];
+  
+    console.log("Translations:");
+  
+    translations.forEach((translation, i) => {
+
+        CandiNameObject.reply.push(translation);
+        console.log("the translations after stored : " + CandiNameObject.reply.join(""));
+
+        console.log(CandiNameObject.push(translations));
+  
+
+  
+        console.log(`${text[i]} => (${target}) ${translation}`);
+
+
+      
+    });
+
+    // CandiNameObject.reply.push(translations);
+  
+  console.log("the translations are : " + translations);
+
+  // console.log("the translations after stored : " + CandiNameObject.reply.join(""));
+
+  varObj.reply = CandiNameObject.reply[0];
+
+  
+
+  const jsonTranslation = await translations;
+  
+
+  return jsonTranslation;
+  
+  }
+
+  
+  async function trans(texti , targetLanguagei){
+
+    var answer;
+
+    try{
+      answer = await translate.translate(texti, targetLanguagei);
+
+    }
+    catch(error){
+      console.log(error)
+
+    }
+
+    return answer;
+
+  }
+
+  async function getResult(){
+
+    const result = await trans("good morning", 'ta');
+    console.log("the value of result " + result);
+    return result;
+
+
+  }
+
+
+  const translatesText = async (text, targetLanguage) => {
+
+    try {
+          let [response] = await translate.translate(text, targetLanguage);
+        return response;
+
+    } catch (error) {
+      console.log(`Error at translateText --> ${error}`);
+       return 0;
+
+    }
+
+};
+
+
+
+
+  
+  
+  const tasktoComplete =  async (text, targetLanguage) => {
+
+    try{
+
+      await translatesText(text, targetLanguage)
+       .then((res) => {
+           console.log(res);
+           result.ans = res;
+           console.log("result.ans value is "+result.ans);
+           return res;
+         }).then((res)=>{
+             console.log("the refined value is " + result.ans)
+             return res;
+         }).then((res) => {
+          return res;
+         }).catch((err) => {
+           console.log(err);
+   
+       });
+
+     //  console.log("The value of result is "  + result.ans)
+
+     }
+     catch(err){
+
+       console.log(err);
+
+     }
+    
+
+}
+
+function respondFunction(res) {
+
+  var result = res;
+  console.log("returnting fron the function " + result);
+  varObj.reply = res;
+  
+
+}
+
+async function quickStart(){
+
+
+  const text = 'Oggi è lunedì';
+  const target = 'en';
+  const [translation] = await translate.translate(text, target);
+
+  helloThere();
+
+  console.log(`text : ${text}` );
+  console.log(`Translation: ${translation}`)
+
+
+
+}
+
+function helloThere(){
+
+  
+  var reply = `CON Hi Vigneshwar
+
+  Welcome to USSD Voting System
+  Your Voter ID number is ${personVoterID}
+
+  Press 1 to continue voting process` 
+
+
+           response.send(reply);
+
+}
+
+function imbalance(){
+
+
+  return quickStart().then(function (data){
+
+   var answer =  JSON.stringify(data)
+   console.log(answer)
+
+   
+  //  helloThere();
+            
+   return console.log(answer);
+
+
+  })
+
+
+}
+
+  async function personidPathFunction(){
+
+    try{
+
+       personidPath.on('value' , function(dataSnapshot){
+  
+        var personVoterID = dataSnapshot.child('voter_id_no').val();
+
+        console.log("the person voter id using trycatch block "+ personVoterID)
+
+        CandiNameObject.voterid.push(personVoterID);
+
+        varObj.voterid = CandiNameObject.voterid.join("");
+
+
+        
+      });
+
+
+      return varObj.voterid;
+
+
+       
+    
+    }
+    catch(error){
+      console.log(error)
+    }
+
+
+
+  }
+
+       
+
+  if(text === ''){
+
+
+            personidPathFunction();
+
+    
+            var personVoterID =  varObj.voterid;
+
+         
+
+            console.log("outside the function" + myval);
+
+            const translateText = async (text, targetLanguage) => {
+
+              try {
+                    let [response] = await translate.translate(text, targetLanguage);
+                  return response;
+          
+              } catch (error) {
+                console.log(`Error at translateText --> ${error}`);
+                 return 0;
+          
+              }
+          
+          };
+
+          var newVari = {ans : "undefined"};
+
+
+     
+        
+        //  const answer =  quickStart()
+        //  .then((res) =>{
+
+        //      newVari.ans = res; 
+
+           
+
+        //      return JSON.stringify(newVari.ans);
+
+        //  });
+
+        //  console.log("the returned value is " + imbalance());
+
+        var reply = `CON Hi Vigneshwar
+
+        Welcome to USSD Voting System
+        Your Voter ID number is ${personVoterID}
+      
+        Press 1 to continue voting process` 
+      
+      
+                 response.send(reply);
+
+
+        
+         
+          
+        //  var  val =  translateText('Oggi è lunedì', 'en')
+          
+        //       .then((res) => {
+
+        //         // response.send(`CON ${res[0]}`)
+                
+                  
+        //           console.log(res);
+        //           // respondFunction(res);
+        //           return res;
+        //         })
+        //         .catch((err) => {
+        //           console.log(err);
+          
+        //       });
+
+    
+
+              // app.get("/",function(req, res){
+
+
+              //   translateText('Oggi è lunedì', 'en')
+          
+              // .then((resultis) => {
+              //   res.send(`CON ${resultis}`);
+
+              //   // // response.send(`CON ${res[0]}`)
+              //   // response.send(`CON hello there`)
+                  
+              //   //   // console.log(res);
+              //   //   // respondFunction(res);
+              //     return res;
+              //   })
+              //   .catch((err) => {
+              //     console.log(err);
+          
+              // });
+                
+              // })
+
+
+            
+
+
+
+            
+            // let reply = `CON Hi Vigneshwar 
+            
+            // Welcome to USSD Votting
+            // Your Voter ID no. is  ${personVoterID}
+            // Press 1 to Proceed Voting`
+
+             
+          //  response.send(reply)
+           
+
+          // try{
+
+          //  await translateText('Oggi è lunedì', 'en')
+          //   .then((res) => {
+          //       console.log(res);
+          //       result.ans = res;
+          //       console.log("result.ans value is "+result.ans);
+          //       return res;
+          //     }).then((res)=>{
+          //         console.log("the refined value is " + result.ans)
+                 
+          //         return res;
+          //     })
+          //     .catch((err) => {
+          //       console.log(err);
+        
+          //   });
+
+          // //  console.log("The value of result is "  + result.ans)
+
+          // }
+          // catch(err){
+
+          //   console.log(err);
+
+          // }
+
+
+
+          
+
+
+
+        // var replied = tasktoComplete('Oggi è lunedì', 'en');
+
+        
+        // response.send(`CON from function ${replied} ${result.ans}`);
+
+           // response.send(`CON ${result.ans}`)
+           
+          
+          
+          // var ready =  translateText('Oggi è lunedì', 'en')
+          //                             .then((res) => {
+          //                                CandiNameObject.reply.push(res);
+          //                                let ready = res;
+          //                                 console.log(res);
+                                          
+          //     let replys = `CON ${res}`
+          //                                 response.send(replys);
+          //                                 throw new Error("Whoops")
+                                          
+          //                               })
+                                      //   .catch((err) => {
+                                      //     console.log(err);
+                                  
+                                      // });
+                                      
+
+              //  translatetheText("hello" , 'ta');
+                  //   .then(function(res){
+                    
+                  //  console.log(res);
+                  //   return res;
+                     
+                  //   })
+                  //   .catch(function (error) {
+                  //     console.log(error)
+                  //   })  
+
+
+                    // var readi  = `CON ${risult}`
+                    // response.send(readi);
+                  
+          
+          //     console.log("the translated text is " + CandiNameObject.reply.join(""))
+
+              // varObj.reply = CandiNameObject.reply.join("");
+          
+              
+
+              // let [resp] = translate.translate("hello there", "ta");
+
+              
+
+              // console.log("the translated text is " + CandiNameObject.reply)
+
+              // var texti = "Good Morning";
+              // var targetLanguagei = 'ta';
+              // let resu = {ans : ""} ;
+
+              // const trans = async (texti, targetLanguagei) => {
+
+              //   return translate.translate(texti, targetLanguagei)
+              //   .then(function(result){
+              //     resu.ans = result;
+              //     return result;
+              //   }).catch((error) => {
+              //     console.log(error);
+              //   });
+                    
+              
+              // };
+
+
+              // function getResult(){
+
+              //   trans("good morning" , 'ta')
+              //       .then(function(respo){
+              //         return respo
+              //       })
+
+              // }
+
+
+
+            //   console.log("the value of resu is " + resu.ans);
+
+
+            //  trans(texti , targetLanguagei);
+
+
+            //  console.log("the returned value of trans is " + trans())
+
+        //  getResult();
+
+     
+
+     
+
+          //  .then(result =>{
+             
+          //   console.log("the value of the result is" + result[0])
+          //   var ready = results[0].toString();
+          //   response.send(`CON ${ready}`);
+          //   return null
+          //  })
+          //  .catch(err => {
+          //    console.log(`ERROR: ` + err);
+          //  });
+
+
+      
+
+        //  let results = getResult();
+
+        //  response.send(`CON ${results}`)
+
+  
+
+        
+    }
+
+    
+  else if (text === '1') {
+    // if (text === '1') {
+
+
+    NameList();
+
+  
+          // // Smaller multiple
+          // var a = (sizeOfCL / 10) * 10;
+            
+          // // Larger multiple
+          // var b = a + 10;
+        
+          // // Return of closest of two
+          // var pages =  (n - a < b - n)? b : a;
+
+          // console.log("the pages are " + pages(0));
+  
+
+  //   // Business logic for first level response
+    
+  //   var s1 = resultSet[0].join("/u000a");
+
+  //   console.log(s1)
+
+
+  var s = CandiNameObject.name.join( '\n' ).toString();
+
+  console.log(s);
+  
+
+  
+    let reply = `CON 
+    
+    ${s}`
+
+    response.send(reply)
+
+
+
+  }
+
+  // else if(text === `1*${text.replace("1*", "")}`)
+
+  else if(text === `1*${strValue}`)
+
+  {
+
+    console.log("The text value is :" + text)
+
+    NameList();
+
+    var copl = CandiNameObject.polling_no.length - 1;
+    var realText = Number(text);
+
+    console.log("the size of copl : "   + copl);
+
+    // if(     Number(text) >= Number(CandiNameObject.polling_no[0])  && 
+    //         Number(text) <= Number(CandiNameObject.polling_no[Number(copl)-1]) ) 
+            
+    //         {
+
+    // var n = 5;
+
+      if( strValue >= CandiNameObject.polling_no[0]  && strValue <= CandiNameObject.polling_no[copl] ) 
+      
+      {
+
+
+        personidPath.on('value', function(dataSnapshot){
+
+          var personVoterID = dataSnapshot.child('voter_id_no').val();
+
+          var statusPath = database.ref('People/' + personVoterID + '/votestatus')
+
+          statusPath.on('value', function(dataSnapshot){
+
+
+            if(dataSnapshot.val() === "voted"){
+
+
+              // var status = dataSnapshot.val();
+
+
+              // if(status === "voted")
+              // // if(status === "not voted")
+  
+              // {
+  
+                console.log("ERRRO ERRRO : ALREADY VOTED!");
+  
+                let reply = `END Sorry , You had already Voted!`
+  
+                CandiNameObject.submit.push(reply);
+
+            
+  
+                // response.send(reply)
+  
+                
+  
+              // }
+
+            }
+
+
+              else{
+  
+  
+            
+                database.ref('voting_poll/' + strValue + '/vote_count' )
+                .transaction(function(value)
+                {
+  
+                  if (value === null) {
+  
+          
+              console.log("Hurrah! Voted Successfully!")
+  
+              let reply = `END Thank You for Voting!`
+  
+              CandiNameObject.submit.push(reply);
+  
+  
+              // response.send(reply)
+  
+              return 1;
+  
+                
+  
+              } else if (typeof value === 'number') {
+  
+                // database.ref('People/' + personVoterID  ).update({
+                //   votestatus : "voted",
+                //    });
+  
+                  
+                  console.log("Hurrah! Voted Successfully!")
+  
+  
+                  let reply = `END Thank You for Voting!`
+  
+                CandiNameObject.submit.push(reply);
+  
+  
+                  // response.send(reply)
+  
+                  console.log("Hurrah! Voted Successfully! after sending reply")
+  
+                return value + 1;
+  
+              
+  
+              } 
+              else {
+  
+  
+  
+                let reply = `END Error Occured
+                
+                
+                Please Try Again!, You are not voted Yet`
+  
+                CandiNameObject.submit.push(reply);
+  
+  
+                // response.send(reply)
+  
+  
+                // we can't increment non-numeric values
+                console.log('The counter has a non-numeric value: ' + value)
+                // letting the callback return undefined cancels the transaction
+              }
+  
+             
+  
+  
+  
+            });
+  
+        
+    
+  
+  
+          }
+
+
+          var report = CandiNameObject.submit.join("")
+
+          if(report === `END Thank You for Voting!`){
+  
+              database.ref('People/' + personVoterID  ).update({
+              votestatus : "voted",
+               });
+
+
+               blockChain(strValue);
+               
+  
+               response.send(CandiNameObject.submit.join(""));
+  
+          }
+          else{
+  
+          
+               response.send(CandiNameObject.submit[0]);
+  
+  
+          }
+
+        
+          });
+
+
+        });
+
+
+        
+
+            }
+
+
+
+            else{
+
+
+
+              let reply = `END Your Entered a wrong Poll number
+              
+              Please Try Again!`
+
+              response.send(reply)
+
+
+            }
+
+  }
+
+  
+  
+  else if (text === '2') {
+
+    // Business logic for first level response
+
+    let reply = `END Your phone number is ${phoneNumber}`
+
+    response.send(reply)
+
+  } else if (text === `1*1`) {
+
+    // Business logic for first level response
+
+    let accountNumber = 'ACC1001'
+
+    // This is a terminal request. Note how we start the response with END
+
+    let reply = `END Your account number is ${accountNumber}`
+
+    response.send(reply)
+
+  } else if (text === '1*2') {
+
+    // This is a second level response where the user selected 1 in the first instance
+
+    let balance = 'NGN 10,000'
+
+    // This is a terminal request. Note how we start the response with END
+
+    let reply = `END Your balance is ${balance}`
+    
+    response.send(reply)
+
+  }else {
+  
+    response.status(400).send('Bad request!')
+
+  }
+
+
+  
+app.listen(port, () => {
+
+  console.log(`Server running on port ${port}`)
+
+})
+
+
+});
+
+
+
+exports.addNumbers = functions.https.onCall((data , context) => {
+  
+
+      var phoneNumber = data.phoneNumber;
+      var secondNumber = data.secondNumber
+
+      
+
+      let varObj = {name : "undefined",
+                     party : "undefined",
+                     polling_no : "undefined", 
+                    imageUrl : "undefined",
+                    partyURL : "undefined",
+                  details : "undefined"};
+
+     
+      let CandiNameObject = {name : [],
+                            party : [],
+                            polling_no : [],
+                             imageUrl : [],
+                            partyURL : [],
+                          details : [] };
+
+      
+      function callFunction(valuet){
+
+        var personidPath = database.ref('Voterid/' + phoneNumber)
+
+        personidPath.on('value', function(dataSnapshot){
+
+          var personVoterID = dataSnapshot.child('voter_id_no').val();
+
+          CandiNameObject.details.push(phoneNumber);
+          CandiNameObject.details.push(personVoterID);
+
+          var testforfun = database.ref('People/' + personVoterID);
+    
+           testforfun.on('value', function(snapshot){
+           console.log("from nameFind function: "+snapshot.child('constituent').val());
+           console.log("from nameFind function: "+snapshot.child('part_no').val());
+           console.log("the name is "+snapshot.child('name').val());
+  
+           var consti = snapshot.child('constituent').val();
+           var part = snapshot.child('part_no').val();
+           var name = snapshot.child('name').val();
+           var dob = snapshot.child('dob').val();
+           var constiName = snapshot.child('constituent_name').val();
+           var partName = snapshot.child('part_name').val();
+           var address = snapshot.child('address').val();
+           var relation = snapshot.child('relation_name').val();
+           
+           CandiNameObject.details.push(consti);
+           CandiNameObject.details.push(part);
+           CandiNameObject.details.push(name);
+           CandiNameObject.details.push(dob);
+           CandiNameObject.details.push(constiName);
+           CandiNameObject.details.push(partName);
+           CandiNameObject.details.push(address);
+           CandiNameObject.details.push(relation);
+
+           varObj.details = valuet.details.join("_");
+           
+  
+           var ref = database.ref('Constituent/' + consti + '/Part/' + part + '/Candidates');
+           
+          //************************************************>>>>
+
+           //OrderByName
+           var queryNameRef = ref.orderByChild("name")
+          
+           queryNameRef.on("value", function(querySnapshot){
+  
+                  querySnapshot.forEach(function(candiSnapshot){
+                    console.log("candiSnap:"  +  candiSnapshot.child("name").val());
+
+                    CandiNameObject.name.push(candiSnapshot.child("name").val())
+                    // CandiNameObject.name.push(" ")
+                    
+                  });
+  
+                  console.log("Thank everyone"); 
+                  
+                  varObj.name = valuet.name.join(" ");
+                  console.log("this is name :" + CandiNameObject.name.join(" "));
+
+                 });
+
+            //************************************************>>>>
+
+            //+++++++++++++++++++++++++++++++++++++++++++++++++>>>>
+
+            //OrderByParty
+           var queryParyRef = ref.orderByChild("party")
+          
+           queryParyRef.on("value", function(queryPartySnapshot){
+  
+            queryPartySnapshot.forEach(function(candiPartySnapshot){
+                    console.log("candiSnap:"  +  candiPartySnapshot.child("party").val());
+
+                    CandiNameObject.party.push(candiPartySnapshot.child("party").val())
+                    // CandiNameObject.party.push(" ")
+                    
+                  });
+  
+                  console.log("Thank everyone");
+                  
+                  varObj.party = valuet.party.join(" ");
+                  console.log("this is party :" + CandiNameObject.party.join(" "));
+
+                 });
+
+            //+++++++++++++++++++++++++++++++++++++++++++++++++>>>>
+
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>
+
+//OrderByPolling
+var queryPollingRef = ref.orderByChild("vote_polling_no")
+          
+queryPollingRef.on("value", function(queryPollingSnapshot){
+
+  queryPollingSnapshot.forEach(function(candiPollingSnapshot){
+         console.log("candiSnap:"  +  candiPollingSnapshot.child("vote_polling_no").val());
+
+         CandiNameObject.polling_no.push(candiPollingSnapshot.child("vote_polling_no").val())
+        //  CandiNameObject.polling_no.push(" ")
+         
+       });
+
+       console.log("Thank everyone");
+       
+       varObj.polling_no = valuet.polling_no.join(" ");
+       console.log("this is polling_no :" + CandiNameObject.polling_no.join(" "));
+
+      });
+            
+
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>
+
+
+          //########################################################>>>>
+
+//OrderByUrl
+var queryImageUrlRef = ref.orderByChild("iurl")
+          
+queryImageUrlRef.on("value", function(queryIurlSnapshot){
+
+  queryIurlSnapshot.forEach(function(candiIurlSnapshot){
+         console.log("candiSnap:"  +  candiIurlSnapshot.child("iurl").val());
+
+         CandiNameObject.imageUrl.push(candiIurlSnapshot.child("iurl").val())
+        //  CandiNameObject.imageUrl.push(" ")
+         
+       });
+
+       console.log("Thank everyone");
+       
+       varObj.imageUrl = valuet.imageUrl.join(" ");
+       console.log("this is imageUrl :" + CandiNameObject.imageUrl.join(" "));
+
+      });
+            
+
+          //########################################################>>>>
+
+          //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&>>>>
+
+//OrderByPartyUrl
+var queryPartyUrlRef = ref.orderByChild("partyURL")
+          
+queryPartyUrlRef.on("value", function(queryPARTYurlSnapshot){
+
+  queryPARTYurlSnapshot.forEach(function(candiPARTYurlSnapshot){
+         console.log("candiSnap:"  +  candiPARTYurlSnapshot.child("partyURL").val());
+
+         CandiNameObject.partyURL.push(candiPARTYurlSnapshot.child("partyURL").val())
+        //  CandiNameObject.partyURL.push(" ")
+         
+       });
+
+       console.log("Thank everyone");
+       
+       varObj.partyURL = valuet.partyURL.join(" ");
+       console.log("this is partyURL :" + CandiNameObject.partyURL.join(" "));
+
+      });
+
+
+          //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&>>>>
+
+
+        });
+
+
+        });
+
+
+        
+
+        console.log("RETURNING ARRAY : " + CandiNameObject.name);
+
+
+        return varObj.name;
+
+
+      }
+
+
+      
+      callFunction(CandiNameObject)
+      
+
+      // let lastOne = callFunction(CandiNameObject);
+      
+      // let variant = JSON.stringify(callFunction(varObj))
+
+      let lastAnswer = CandiNameObject.name.join(" ");
+
+
+      let getName = varObj.name;
+      let getParty = varObj.party;
+      let getProImageUrl = varObj.imageUrl;
+      let getPollingNo = varObj.polling_no;
+      let getPartyURL = varObj.partyURL;
+      let getVoterDetails = varObj.details;
+
+      console.log("NameList : " + getName);
+      console.log("PartyList : " + getParty);
+      console.log("iUrlList : " + getProImageUrl);
+      console.log("PollingNoList : " + getPollingNo);
+      console.log("PartyURL : " + getPartyURL);
+      console.log("voter_details "  + getVoterDetails); 
+
+
+      console.log("lastAnswer :"  + lastAnswer)
+
+      return {
+        
+        CandiName : getName,
+        CandiParty : getParty,
+        CandiImage : getProImageUrl,
+        PartyImage : getPartyURL,
+        CandiPollingNo : getPollingNo,
+        VoterDetails : getVoterDetails,} ;
+    
+    });
+
+
+exports.addVote = functions.https.onCall((data , context) => {
+  
+
+      var poll_no = data.poll_no;
+      var imei_no = data.imei_no;
+      var phoneNumber = data.phoneNumber;
+
+      let varObj = {
+        name : "undefined",
+        polling_no : "undefined", 
+        voterid : "undefined",
+        CandiName : "undefined"
+    };
+    
+    
+    let CandiNameObject = {
+      name : [],
+      polling_no : [],
+      voterid : [],
+     CandiName : []
+    };
+
+      let voteResultString = {
+        stringResult : "undefined"};
+
+    let voteResultArray = {
+                arrayResult : [],
+             };
+
+
+                var CphoneNumber = phoneNumber;
+                var personidPath = database.ref('Voterid/' + CphoneNumber)
+
+                async function NameListed(hash, timestamp){
+
+
+                  try{
+
+
+                    console.log("The phone number is : " + CphoneNumber);
+                    console.log("Person ID PATH : " + personidPath);
+                
+                     personidPath.on('value' , function(dataSnapshot){
+
+                      //##Person Voter ID##
+
+                      
+                     var personVoterID = dataSnapshot.child('voter_id_no').val();
+                
+                     
+                    console.log("Person voter id : " + personVoterID);
+
+                    CandiNameObject.voterid.push(personVoterID);
+                
+                
+                     var testforfun = database.ref('People/' + personVoterID);
+                
+                      testforfun.on('value' , function(snapshot){
+                      
+                      //Person Name
+                      var name = snapshot.child('name').val();
+
+                      CandiNameObject.name.push(name);
+                      console.log("the transac  Name is " + CandiNameObject.name.join(""))
+                    
+                var refe = database.ref('voting_poll/' + poll_no + '/name')          
+                
+                       
+                refe.on("value" , function(querySnapshot){
+                
+                      
+                  var Cname = querySnapshot.val();
+                  CandiNameObject.CandiName.push(Cname);
+                  console.log("the transac Candidate Name is " + CandiNameObject.CandiName.join(""))
+
+                  admin.database.ref(hash).set({
+                    trans_name : CandiNameObject.name[0],
+                    trans_voterid : CandiNameObject.voterid[0],
+                    trans_CandidateName : CandiNameObject.CandiName[0],
+                    trans_VotedTime : timestamp,
+                    trans_PolledNumber : poll_no,
+                    trans_Key : hash
+                      });
+                
+                 
+                
+                    });
+                
+                
+                   });
+                
+                 }, function(error){
+                       console.error(error);
+                     });
+                
+                
+                 
+
+                   
+                       }
+                 
+                    
+                
+                  catch(error){
+                
+                 console.log(error)
+                
+                  }
+
+                  
+                 
+                   
+                     
+                
+      }
+                  
+                  
+      async function blockChain(){
+
+        const crypto = require('crypto');
+
+        var encript= phoneNumber + poll_no + "!@#$%";
+        
+        var hash = crypto.createHmac('sha256', "secret")
+        .update(encript)
+        .digest('hex').toString();
+
+        
+       let ts = Date.now();
+
+      // timestamp in milliseconds
+      console.log(ts);
+
+     // timestamp in seconds
+      console.log(Math.floor(ts/1000));
+
+      var timestamp = Math.floor(ts/1000);
+
+      NameListed(hash, timestamp);
+
+        // return sha(JSON.stringify(this.data) + this.prevHash + this.index + this.timestamp);
+       
+
+      }
+                // 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+
+
+                // console.log("The text value is :" + text)
+
+                // NameList();
+            
+                // var copl = CandiNameObject.polling_no.length - 1;
+                // var realText = Number(text);
+            
+                // console.log("the size of copl : "   + copl);
+            
+                // if(     Number(text) >= Number(CandiNameObject.polling_no[0])  && 
+                //         Number(text) <= Number(CandiNameObject.polling_no[Number(copl)-1]) ) 
+                        
+                //         {
+            
+                // var n = 5;
+            
+                  // if( strValue >= CandiNameObject.polling_no[0]  && strValue <= CandiNameObject.polling_no[copl] ) 
+                  
+                  // {
+            
+            
+                    // var personidPath = database.ref('Voterid/' + phoneNumber)
+
+                    personidPath.on('value', function(dataSnapshot){
+            
+                      var personVoterID = dataSnapshot.child('voter_id_no').val();
+            
+                      var statusPath = database.ref('People/' + personVoterID + '/votestatus')
+            
+                      statusPath.on('value', function(dataSnapshot){
+
+                        
+            
+            
+                        if(dataSnapshot.val() === "voted"){
+            
+            
+                          // var status = dataSnapshot.val();
+            
+            
+                          // if(status === "voted")
+                          // // if(status === "not voted")
+              
+                          // {
+
+                            console.log("ERRRO ERRRO : ALREADY VOTED!");
+
+                            voteResultArray.arrayResult.push("Already voted!");
+            
+                        
+              
+                            // response.send(reply)
+              
+                            
+              
+                          // }
+            
+                        }
+            
+            
+                          else{
+              
+                            voteResultArray.arrayResult.push("Voted Successfully!");
+              
+                        
+                            database.ref('voting_poll/' + poll_no + '/vote_count' )
+                            .transaction(function(value)
+                            {
+              
+                              if (value === null) {
+              
+                      
+                                console.log("Hurrah! Voted Successfully!")
+
+                                voteResultArray.arrayResult.push("Voted Successfully!");
+                
+              
+                          // response.send(reply)
+              
+                          return 1;
+              
+                            
+              
+                          } else if (typeof value === 'number') {
+              
+                            // database.ref('People/' + personVoterID  ).update({
+                            //   votestatus : "voted",
+                            //    });
+                            console.log("Hurrah! Voted Successfully!")
+                  
+                            voteResultArray.arrayResult.push("Voted Successfully!");
+                            return value + 1;
+              
+                          
+              
+                          } 
+                          
+                          
+                          
+                          else {
+              
+              
+                           
+               voteResultArray.arrayResult.push("Please Try Again");
+
+               // we can't increment non-numeric values
+               console.log('The counter has a non-numeric value: ' + value)
+               // letting the callback return undefined cancels the transaction
+
+                          }
+              
+                         
+              
+              
+              
+                        });
+              
+                    
+                
+              
+              
+                      }
+            
+            
+                      var report = voteResultArray.arrayResult[0];
+            
+                      if(report ===  "Voted Successfully!"){
+
+                        database.ref('People/' + personVoterID  ).update({
+                          votestatus : "voted",
+                           });
+              
+                           database.ref('IMEI_NO/' + imei_no ).set({
+                          phoneNumber : phoneNumber,
+                          imei : imei_no,
+                            });
+
+                        blockChain();
+
+
+              
+                      }
+                   
+            
+                    
+                      });
+            
+            
+                    });
+            
+            
+                    
+           
+
+        let value =  voteResultArray.arrayResult[0];
+
+        console.log("VOTE REACTION : " + value);
+
+
+
+        return {
+        
+          Thankful : value,
+        
+        };
+
+
+
+      });
+
+      
+
+
+exports.checkIMEI = functions.https.onCall((data , context) => {
+  
+
+  var check_imei_no = data.imei_no;
+
+  let stringObj = {
+              stringResult : "undefined"};
+
+  let ArrayObject = {
+                      arrayResult : [] };
+
+  function callthisFunction(valuet){
+
+    var imeiPath = database.ref('IMEI_NO/' + check_imei_no)
+
+    imeiPath.on('value', function(dataSnapshot){
+
+      if(dataSnapshot.exists()){
+
+
+         ArrayObject.arrayResult.push("true");
+
+      }
+      else{
+
+        ArrayObject.arrayResult.push("false");
+
+      }
+
+      stringObj.stringResult = valuet.arrayResult.join("");
+
+    });
+
+    
+    console.log("The output will be like : " + stringObj.stringResult);
+
+
+    return stringObj.stringResult;
+
+
+  }
+
+
+  
+  callthisFunction(ArrayObject)
+  
+
+  let lastAnswer = ArrayObject.arrayResult.join(" ");
+
+
+
+  let getString = stringObj.stringResult;
+
+  console.log("RESULTANT STRING : " + getString);
+
+  console.log("lastAnswer :"  + lastAnswer)
+
+  return {
+    
+    getResult : getString,
+    };
+
+});
+
+
+
+exports.newDeleteDetected = functions.database.ref('{key}')
+                                   .onDelete((snapshot, context) => {
+
+                                    var deletedNode = snapshot.child("trans_Key").val();
+                                    var CandidateName = snapshot.child("trans_CandidateName").val();
+                                    var PolledNumber = snapshot.child("trans_PolledNumber").val();
+                                    var name  = snapshot.child("trans_name").val();
+                                    var voterid = snapshot.child("trans_voterid").val();
+                                    var VotedTime = snapshot.child("trans_VotedTime").val();
+
+                                    console.log("the value of thanks : " + deletedNode.thanks);
+
+                                    database.ref(deletedNode).set({
+                                      trans_CandidateName : CandidateName,
+                                      trans_PolledNumber : PolledNumber,
+                                      trans_name : name,
+                                      trans_voterid : voterid,
+                                      trans_VotedTime : VotedTime,
+                                      trans_Key : deletedNode
+                                  
+                                    });
+
+
+                                    const translateText = async (text, targetLanguage) => {
+
+                                      try {
+                                            let [response] = await translate.translate(text, targetLanguage);
+                                          return response;
+                                  
+                                      } catch (error) {
+                                        console.log(`Error at translateText --> ${error}`);
+                                         return 0;
+                                  
+                                      }
+                                  
+                                  };
+                                  
+                                  
+                                  
+                                  translateText('Oggi è lunedì', 'en')
+                                  
+                                      .then((res) => {
+                                          
+                                          console.log(res);
+                                          respondFunction(res);
+                                          return;
+                                        })
+                                        .catch((err) => {
+                                          console.log(err);
+                                  
+                                      });
+
+
+                                     function respondFunction(res) {
+
+                                        var result = res;
+                                        console.log("returnting fron the function " + result);
+  
+                                     }
+
+                                   });
+
+                                  
+
+
+                                // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                              //   const translateText = async (text, targetLanguage) => {
+
+                              //     try {
+                              //           let [response] = await translate.translate(text, targetLanguage);
+                              //         return response;
+                              
+                              //     } catch (error) {
+                              //       console.log(`Error at translateText --> ${error}`);
+                              //        return 0;
+                              
+                              //     }
+                              
+                              // };
+                              
+                              
+                              // let result = {ans : "undef"};
+
+                              // try{
+
+                              //   translateText('Oggi è lunedì', 'en')
+                              
+                              //   .then((res) => {
+                              //       console.log(res);
+                              //       result.ans = res;
+                              //       console.log("result.ans value is "+result.ans);
+                              //       return res;
+                              //     }).then((res)=>{
+                              //         console.log("the refined value is " + result.ans)
+                              //         return res;
+                              //     })
+                              //     .catch((err) => {
+                              //       console.log(err);
+                            
+                              //   });
+
+                              //  console.log("The value of result is "  + result.ans)
+
+                              // }
+                              // catch(err){
+
+                              //   console.log(err);
+
+                              // }
+                          
+                              //  });
+
+                               exports.peopleNode = functions.database.ref('People/{key}')
+                                   .onDelete((snapshot, context) => {
+
+                                    var deletedNode = snapshot.child("voterid").val();
+                                    var address = snapshot.child("address").val();
+                                    var constituent = snapshot.child("constituent").val();
+                                    var constituent_name  = snapshot.child("constituent_name").val();
+                                    var dob = snapshot.child("dob").val();
+                                    var name = snapshot.child("name").val();
+                                    var part_name = snapshot.child("part_name").val();
+                                    var part_no = snapshot.child("part_no").val();
+                                    var phone = snapshot.child("phone").val();
+                                    var relation_name = snapshot.child("relation_name").val();
+                                    var votestatus = snapshot.child("votestatus").val();
+
+                                    console.log("the value of thanks : " + deletedNode.thanks);
+
+                                    database.ref("People/" + deletedNode).set({
+                                      address : address,
+                                      constituent : constituent,
+                                      constituent_name : constituent_name,
+                                      dob : dob,
+                                      name : name,
+                                      part_name : part_name,
+                                      part_no : part_no,
+                                      phone : phone,
+                                      relation_name : relation_name,
+                                      votestatus : votestatus,
+                                      voterid : deleteNode
+                                  
+                                    });
+                                  });
+
+                                  exports.peopleNode = functions.database.ref('People/{key}')
+                                  .onDelete((snapshot, context) => {
+
+                                   var deletedNode = snapshot.child("voterid").val();
+                                   var address = snapshot.child("address").val();
+                                   var constituent = snapshot.child("constituent").val();
+                                   var constituent_name  = snapshot.child("constituent_name").val();
+                                   var dob = snapshot.child("dob").val();
+                                   var name = snapshot.child("name").val();
+                                   var part_name = snapshot.child("part_name").val();
+                                   var part_no = snapshot.child("part_no").val();
+                                   var phone = snapshot.child("phone").val();
+                                   var relation_name = snapshot.child("relation_name").val();
+                                   var votestatus = snapshot.child("votestatus").val();
+
+                                   console.log("the value of thanks : " + deletedNode.thanks);
+
+                                   database.ref("People/" + deletedNode).set({
+                                     address : address,
+                                     constituent : constituent,
+                                     constituent_name : constituent_name,
+                                     dob : dob,
+                                     name : name,
+                                     part_name : part_name,
+                                     part_no : part_no,
+                                     phone : phone,
+                                     relation_name : relation_name,
+                                     votestatus : votestatus,
+                                     voterid : deleteNode
+                                 
+                                   });
+                                 });
+
+                                 exports.ReceivedVotesDeleted = functions.database.ref('ReceivedVotes')
+                                 .onDelete((snapshot, context) => {
+
+                                  var deletedNode = snapshot.child("Key").val();
+                                  var Party1 = snapshot.child("Party1").val();
+                                  var Party2 = snapshot.child("Party2").val();
+                                  var Party3  = snapshot.child("Party3").val();
+                                  var Party4 = snapshot.child("Party4").val();
+                                  var Party5 = snapshot.child("Party5").val();
+                                  var Party6 = snapshot.child("party6").val();
+                                  var Party7 = snapshot.child("Party7").val();
+
+                                  console.log("the value of thanks : " + deletedNode.thanks);
+
+                                  database.ref("ReceivedVotes").set({
+                                    Key : deletedNode,
+                                    Party1 : Party1,
+                                    Party2 : Party2,
+                                    Party3 : Party3,
+                                    Party4 : Party4,
+                                    Party5 : Party5,
+                                    Party6 : Party6,
+                                    Party7 : Party7
+                                
+                                  });
+                                });
+
+                                exports.RegisteredUsersDeleted = functions.database.ref('Users/{key}')
+                                .onDelete((snapshot, context) => {
+
+                                 var deletedNode = snapshot.child("Key").val();
+                                 var name = snapshot.child("name").val();
+                                 var phone = snapshot.child("phone").val();
+                                 var voter_id_no  = snapshot.child("voter_id_no").val();
+
+                                 console.log("the value of thanks : " + deletedNode.thanks);
+
+                                 database.ref("Users/" + deletedNode).set({
+                                   Key : deletedNode,
+                                   name : name,
+                                   phone : phone,
+                                   voter_id_no : voter_id_no
+                                 });
+                               });
+
+
+                              exports.VotingPollsDeleted = functions.database.ref('voting_poll/{key}')
+                              .onDelete((snapshot, context) => {
+
+                               var deletedNode = snapshot.child("Key").val();
+                               var name = snapshot.child("name").val();
+                               var vote_count = snapshot.child("vote_count").val();
+
+                               console.log("the value of thanks : " + deletedNode.thanks);
+
+                               database.ref("voting_poll/" + deletedNode).set({
+                                 Key : deletedNode,
+                                 name : name,
+                                 vote_count : vote_count
+                               });
+                             });
+
+                             exports.VoteridDeleted = functions.database.ref('Voterid/{key}')
+                             .onDelete((snapshot, context) => {
+
+                              var deletedNode = snapshot.child("phone").val();
+                              var phone = snapshot.child("phone").val();
+                              var voter_id_no = snapshot.child("voter_id_no").val();
+
+                              console.log("the value of thanks : " + deletedNode.thanks);
+
+                              database.ref("Voterid/" + deletedNode).set({
+                                phone : phone,
+                                voter_id_no : voter_id_no
+                              });
+                            });
+
+
+                            exports.addressUpdated = functions.database.ref('People/{voterid}/address')
+                             .onDelete((snapshot, context) => {
+
+
+
+                              var address = snapshot.val();
+                              // var addressBefore = snapshot.before.val();
+
+
+                              
+                              database.ref('People').orderByChild("address").equalTo(address).on('value' , function(snap) {
+
+                              snap.on('value', function(data){
+
+                                console.log("inside foreach : " + data.key)
+
+                                sb.node.push(data.key)
+
+                                console.log("the value inside the vault is " + data.key)
+
+                                database.ref('People/' + data.key + '/address').set(address);
+
+                                console.log("set completed!")
+
+                              })
+
+                                 
+                              
+                                
+
+                               
+                                  // console.log("The first vault is " + sb.node.join(""));
+
+                              })
+
+                              // console.log("The second vault is " + sb.node.join(""));
+
+
+                     
+                            });
+
+
+
+
+
+                                   exports.newNodeDeleted = functions.database.ref('Transactions/hello/City')
+                                   .onDelete((change, context) => {
+
+
+                                       var ValueBefore = change.before.val();
+                                  
+                                    database.ref('Transactions/{key}/City').set(ValueBefore);
+
+
+                                 
+                                   });
+
+
+                                   
